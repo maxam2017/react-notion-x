@@ -1,6 +1,7 @@
 {
-  "name": "react-notion-x",
-  "version": "6.15.7",
+  "name": "@maxam2017/react-notion-x",
+  "version": "6.15.7-patch.5",
+  "private": false,
   "type": "module",
   "description": "Fast and accurate React renderer for Notion.",
   "repository": "NotionX/react-notion-x",
@@ -50,5 +51,8 @@
   "peerDependencies": {
     "react": ">=16",
     "react-dom": ">=16"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }

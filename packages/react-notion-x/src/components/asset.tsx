@@ -74,8 +74,12 @@ export const Asset: React.FC<{
         } else if (block_preserve_scale) {
           style.objectFit = 'contain'
         }
-      } else if (block_aspect_ratio && block.type !== 'image') {
+      } else if (block_aspect_ratio) {
+        style.height = 0
         style.paddingBottom = `${block_aspect_ratio * 100}%`
+        assetStyle.position = 'absolute'
+        assetStyle.top = 0
+        assetStyle.left = 0
       } else if (block_height) {
         style.height = block_height
       } else if (block_preserve_scale) {
@@ -103,16 +107,28 @@ export const Asset: React.FC<{
         }
       }
 
-      if (block_width) {
-        style.width = block_width
-      }
-
-      if (block_preserve_scale && block.type !== 'image') {
-        style.paddingBottom = '50%'
-        style.minHeight = 100
+      if (
+        block_preserve_scale &&
+        block.type === 'image' &&
+        block_aspect_ratio
+      ) {
+        style.height = 0
+        style.paddingBottom = `${block_aspect_ratio * 100}%`
+        assetStyle.position = 'absolute'
+        assetStyle.top = 0
+        assetStyle.left = 0
       } else {
-        if (block_height && block.type !== 'image') {
-          style.height = block_height
+        if (block_width) {
+          style.width = block_width
+        }
+
+        if (block_preserve_scale && block.type !== 'image') {
+          style.paddingBottom = '50%'
+          style.minHeight = 100
+        } else {
+          if (block_height && block.type !== 'image') {
+            style.height = block_height
+          }
         }
       }
     }
@@ -276,12 +292,8 @@ export const Asset: React.FC<{
 
   return (
     <>
-      <div style={style}>
-        {content}
-        {block.type === 'image' && children}
-      </div>
-
-      {block.type !== 'image' && children}
+      <div style={style}>{content}</div>
+      {children}
     </>
   )
 }
